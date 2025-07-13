@@ -19,7 +19,7 @@ export async function POST(request) {
     if (!isMatch) {
       return new Response(JSON.stringify({ error: 'Invalid credentials' }), { status: 400 });
     }
-
+    console.log(JWT_SECRET);
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '1d' });
 
     return new Response(JSON.stringify({ message: 'Login successful', token }), { status: 200 });

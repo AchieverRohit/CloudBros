@@ -22,7 +22,7 @@ export default function LoginPage() {
     });
     const data = await res.json();
     if (res.ok) {
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('cloudtoken', data.token);
       alert('Login successful');
       window.location.href = '/';
     } else {
