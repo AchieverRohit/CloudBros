@@ -22,8 +22,9 @@ export default function LoginPage() {
     });
     const data = await res.json();
     if (res.ok) {
-      alert('Signup successful');
-      window.location.href = '/auth/login';
+      localStorage.setItem('token', data.token);
+      alert('Login successful');
+      window.location.href = '/';
     } else {
       alert(data.error);
     }

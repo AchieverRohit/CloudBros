@@ -2,14 +2,14 @@ import pool from '../../../../db';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = 'your_jwt_secret';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function POST(request) {
   const { email, password } = await request.json();
 
   try {
-    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-    const user = rows[0];
+    const [users] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    const user = users[0];
 
     if (!user) {
       return new Response(JSON.stringify({ error: 'Invalid credentials' }), { status: 400 });
