@@ -2,7 +2,10 @@
 
 import { useState } from 'react';
 
-export default function SignInPage() {
+
+
+
+export default function Signup() {
   const [formData, setFormData] = useState({ email: '', password: '' });
 
   const handleChange = (e) => {
@@ -12,11 +15,25 @@ export default function SignInPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Signing up with:', formData);
-    // Add signup API call here
-  };
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert('Signup successful');
+      window.location.href = '/auth/login';
+    } else {
+      alert(data.error);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
